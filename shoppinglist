@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<!--nessumsar-->
+<head>
+    <style>
+
+        div  {
+            text-decoration: none;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 30px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin: auto;
+        }
+        body  {
+            background-image: linear-gradient(from left, #b4b4b4 40%, #FFFFFF 42%, #FFFFFF 58%, #b4b4b4 60%); 
+            
+        }
+        p  {
+            text-decoration: none;
+        }
+        p:hover  {
+            text-decoration: none; 
+        }
+        li:hover  {
+            color: #504f4f;
+        }
+        li:visited  {
+            text-decoration: line-through;
+        }
+        .lastAddedItem  {
+            text-decoration: none;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+        }
+        .addSuggestedItem  {
+            text-decoration: none;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 1.2px;
+        }
+        .input  {
+            width: calc(100% - 16px);
+            background-color: white;
+            font-weight: bold;
+            font-size: 34px;
+            align-self: center;
+            margin: auto;
+            padding: 6px;
+        }
+        .button {
+            width: 300px;
+            border-radius: 45px;
+            background-color: orangered;
+            border: 0px;
+            color: white;
+            font-size: 26px;
+            font-weight: bold;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: auto;
+        }
+        .xbutton {
+            width: 23.5px;
+            border-radius: 50%;
+            background-color: orangered;
+            border: 0px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            font-family: Arial, Helvetica, sans-serif;
+            margin-top: 18px;
+            float: right;
+            transform: translate(-50%, -50%);
+        }
+        .suggestbutton {
+            width: 100px;
+            border-radius: 45px;
+            background-color: rgb(3, 114, 3);
+            border: 0px;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: auto;
+        }
+        .nothanks {
+            width: 80px;
+            border-radius: 45px;
+            background-color: rgb(136, 11, 11);
+            border: 0px;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: auto;
+        }
+        span  {
+            background: #e7e7e7;
+            min-width: 300px;
+            display: inline-block;
+        }
+        span:hover  {
+            background-color: white;
+        }
+        .button:hover,
+        .suggestbutton:hover,
+        .nothanks:hover   {
+            color: #e7e7e7;
+        }
+        .close  {
+            position: absolute;
+            right: 0;
+            top: 0;
+            padding: 12px 16px 12px 16px;
+            font-size: 40px;
+        }
+        .close:hover  {
+            color: white;
+        }
+        .main  {
+            width: 300px;
+            height: 100%;
+            background-color: white;
+            align-content: center;
+        }
+        .shoppinglistheader  {
+            font-size: 32px;
+            color: white;
+            background-color: black;
+            letter-spacing: 1.1;
+            padding: 20px 0px 20px 0px
+        }
+        .apple,
+        .apples,
+        .asparagus,
+        .avocado,
+        .avocados,
+        .banana,
+        .bananas,
+        .beets,
+        .bhindi,
+        .blackberries,
+        .blueberries,
+        .broccoli,
+        .cabbage,
+        .cantaloupe,
+        .carrots,
+        .cauliflower,
+        .celery,
+        .chard,
+        .cilantro,
+        .clementines,
+        .corn,
+        .eggplant,
+        .grapes,
+        .honeydew,
+        .kiwi,
+        .kiwis,
+        .lettuce,
+        .lemons,
+        .limes,
+        .mandarins,
+        .methi,
+        .mint,
+        .mushrooms,
+        .nectarines,
+        .okra,
+        .oranges,
+        .papaya,
+        .parsley,
+        .passionfruit,
+        .peaches,
+        .pear,
+        .pears,
+        .peppers,
+        .pineapple,
+        .pineapples,
+        .plantain,
+        .plantains,
+        .plums,
+        .pomegranate,
+        .pomegranates,
+        .potatoes,
+        .raspberries,
+        .rhubarb,
+        .rutabaga,
+        .squash,
+        .strawberries,
+        .watermelon,
+        .zucchini  {
+            color: rgb(12, 87, 12);
+        }
+        .beer,
+        .cider,
+        .wine  {
+            color: #775f00;
+        }
+        .beef,
+        .chicken,
+        .lamb,
+        .pork,
+        .sausage,
+        .turkey  {
+            color: rgb(114, 7, 7);
+        }
+        
+        
+    </style>
+</head>
+<body>
+
+<div class="main">
+
+<div class="shoppinglistheader">Shopping List</div>
+
+<!--Data Entry - Text Input------------------------------------------------->
+
+<input id="input" class="input" value="Add Item" onfocus="this.value=''"/><br><br>
+<button id="button" class="button" onclick="newList(), lastAdded(), document.getElementById('input').value = ''">Click to Add</button>
+
+<!--Data Entry - Suggested Input------------------------------------------------->
+
+<div id="addSuggestedItem" class="addSuggestedItem"></div>
+<div id="buttons"><button id="suggestbutton" class="suggestbutton" onclick="addSeasonalFoods(), hideButtonsDiv(), hideAddSuggestedItem()">Yes, Please!</button>
+<button id="nothanks" class="nothanks" onclick="hideButtonsDiv(), hideAddSuggestedItem()">No Thanks</button></div>
+
+<!--Data Entry - Last Added Item------------------------------------------------->
+
+<div id="lastAddedItem" class="lastAddedItem"></div>
+<br>
+<div id="list" name="list"></div>
+
+</div>
+
+<!--Create and alphabetize the list, create list suggestions, and add suggested items to list-------------------------------------------------->
+
+<script>
+    //--------------------------------------------------------------------------------------------------------
+    //declared arrays 
+    var listArray = [];
+    var listArrayClose = [];
+
+    //--------------------------------------------------------------------------------------------------------
+    //variable food arrays
+    var summerFoods = ["popsicles", "ice cream", "lemonade", "iced tea", "watermelon", "gelato"];
+    var winterFoods = ["canned soup", "hot chocolate mix"];
+    var christmasFoods = ["boxed stuffing", "cranberries", "canned gravy", "whipped cream", "wine", "candy canes", "paper plates"];
+    var fridayFoods = ["beer", "wine"];
+    var healthyFoods = ["broccoli", "cauliflower", "apples", "oranges", "pears", "romaine hearts", "celery"];
+
+    //--------------------------------------------------------------------------------------------------------
+    //randomize variable food arrays
+    var randomSummerItem = summerFoods[Math.floor(Math.random()*summerFoods.length)];
+    var randomWinterItem = winterFoods[Math.floor(Math.random()*winterFoods.length)];
+    var randomChristmasItem = christmasFoods[Math.floor(Math.random()*christmasFoods.length)];
+    var randomFridayItem = fridayFoods[Math.floor(Math.random()*fridayFoods.length)];
+    var randomHealthyItem = healthyFoods[Math.floor(Math.random()*healthyFoods.length)];
+    
+    //--------------------------------------------------------------------------------------------------------
+    //other global variables
+    var randomItem; // used in determineRandomItem and addSeasonalFoods
+    var xbutton = "<button id='xbutton' class='xbutton' onclick='removeListArrayElement()'>X</button>"; // close (X) button on list items  
+    
+    /*
+            for (var i = 0; i < 20; i++)  {
+            const item = document.createElement('button')
+            item.value = i
+            item.textContent = 'X'
+            item.className = 'xbutton'
+            list.appendChild(item)
+        }
+    */
+    
+    //--------------------------------------------------------------------------------------------------------
+    //works fully - determine Random Item Category and add to page below input field
+    function determineRandomItem() {
+        var date = new Date();
+        var d = date.getDate(); // day of month
+        var mon = date.getMonth(); // January = 0, December = 11
+        var wd = date.getDay(); // Sunday = 0, Saturday = 6 
+          if (wd == 5) {
+            randomItem = randomFridayItem;
+            document.getElementById("addSuggestedItem").innerHTML = ("Its Friday! Add " + randomItem + " to your list?");
+        } else if (mon == 11) {
+            randomItem = randomChristmasItem;
+            document.getElementById("addSuggestedItem").innerHTML = ("Christmas is coming! Add " + randomItem + " to your list?");
+        } else if (mon == 0)  {
+            randomItem = randomWinterItem;
+            document.getElementById("addSuggestedItem").innerHTML = ("It's chilly out! Add " + randomItem + " to your list?");
+        } else if (mon == 6)  {
+            randomItem = randomSummerItem;
+            document.getElementById("addSuggestedItem").innerHTML = ("Its a hot one! Add " + randomItem + " to your list?");
+        } else  {
+            randomItem = randomHealthyItem;
+            document.getElementById("addSuggestedItem").innerHTML = ("Eat Healthier! Add " + randomItem + " to your list?");
+        }
+        
+    }
+    determineRandomItem(randomItem);
+    
+
+    //--------------------------------------------------------------------------------------------------------
+    //works fully - try to condense with addSeasonalFoods
+    function newList() {
+        listArray.push(document.getElementById("input").value);
+        listArrayClose.push("X")
+        listArray.sort()
+        console.log(listArray);
+        console.log(listArrayClose);
+    var i;
+    var j = "";
+    var k = listArray.length;
+        for (i = 0; i < k; i++)  {
+            j += "<span class=" + listArray[i] + ">" + listArray[i] + "<button id=" + 'xbutton' + [i] + " class='xbutton' onclick='removeListArrayElement()'>" + listArrayClose[i] + "</button>" + "</span>" + "<br>";
+            document.getElementById("list").innerHTML = j;
+            }
+    }
+  
+  
+    //--------------------------------------------------------------------------------------------------------
+    //works fully - add seasonal foods from seasonal array to newList array - try to condense with newList
+    function addSeasonalFoods() {
+            listArray.push(randomItem);
+            listArrayClose.push("X")
+            listArray.sort()
+            console.log(listArray);
+            console.log(listArrayClose);
+        var i;
+        var j = "";
+        var k = listArray.length;
+        for (i = 0; i < k; i++)  {
+            j += "<span class=" + listArray[i] + ">" + listArray[i] + "<button id=" + 'xbutton' + [i] + " class='xbutton' onclick='removeListArrayElement()'>" + listArrayClose[i] + "</button>" + "</span>" + "<br>";
+            document.getElementById("list").innerHTML = j;
+            }
+    }
+    
+    //--------------------------------------------------------------------------------------------------------
+    //under construction - add suggested items based on items inputed into array by user
+
+
+
+    //--------------------------------------------------------------------------------------------------------
+    //works fully - try to condense with hideAddSuggestedItem
+    function hideButtonsDiv()  {
+        var x = document.getElementById("buttons");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    //under construction - Remove listArray Items 
+    function removeListArrayElement()  {
+
+        var arrayNumber = document.getElementById("xbutton" + [i]); // no idea how to make this work. Find way to increment value of button and find way to call said button.
+        //console.log(document.getElementById("xbutton").value)
+        listArray.splice(arrayNumber , 1);
+        listArrayClose.splice(arrayNumber , 1);
+        console.log(listArray);
+        console.log(listArrayClose); // console logs show array values disapearing, starting at 0
+        var i;
+        var j = "";
+        var k = listArray.length;
+        var l = listArrayClose.length;
+        for (i = 0; i < k; i++)  
+        j += "<span class=" + listArray[i] + ">" + listArray[i] + "<button id=" + 'xbutton' + [i] + " class='xbutton' onclick='removeListArrayElement()'>" + listArrayClose[i] + "</button>" + "</span>" + "<br>";
+        //j += "<span class=" + listArray[i] + ">" + listArray[i] + "<button id='xbutton' class='xbutton' onclick='removeListArrayElement()'>" + listArrayClose[i] + "</button>" + "</span>" + "<br>";
+
+        document.getElementById("list").innerHTML = j
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    //works fully - try to condense with hideButtonsDiv
+    function hideAddSuggestedItem()  {
+        var x = document.getElementById("addSuggestedItem");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>   
+
+
+<!--Hit Enter instead of Click-------------------------------------------------->
+<script>
+    //works fully
+    var input = document.getElementById("input");    
+    input.addEventListener("keyup", function(event) {
+        if (event.keyCode === 13)   {
+            document.getElementById("button").click();
+        }
+    });
+</script>
+
+
+<!--Last Added Item Displayed-------------------------------------------------->
+<script>
+    //works fully
+    function lastAdded()  {
+        document.getElementById("lastAddedItem").innerHTML = ('The last item you entered was ' + document.getElementById("input").value);
+    }
+
+
+</script>
+
+
+</body>
+</html>
